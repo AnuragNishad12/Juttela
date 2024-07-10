@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/aclonica</item>
+        <item>@font/baloo_bhaijaan</item>
+        <item>@font/calistoga</item>
+        <item>@font/candal</item>
+        <item>@font/cantora_one</item>
+    </array>
+</resources>
