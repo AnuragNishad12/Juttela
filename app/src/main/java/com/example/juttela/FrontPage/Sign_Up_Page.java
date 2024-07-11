@@ -78,7 +78,8 @@ public class Sign_Up_Page extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Toast.makeText(Sign_Up_Page.this, "User Added Succefully", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(Sign_Up_Page.this,MainActivity.class);
+                                    Intent intent = new Intent(Sign_Up_Page.this,Details_Activity.class);
+                                    intent.putExtra("name",name);
                                     startActivity(intent);
                                     finish();
                                 }

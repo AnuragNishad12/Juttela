@@ -13,11 +13,13 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.juttela.MainActivity;
 import com.example.juttela.R;
 import com.example.juttela.databinding.ActivityFrontPagesBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Front_Pages extends AppCompatActivity {
 
 
     ActivityFrontPagesBinding binding;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,12 @@ public class Front_Pages extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if (auth.getCurrentUser()!=null){
+            Intent intent = new Intent(Front_Pages.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 }
