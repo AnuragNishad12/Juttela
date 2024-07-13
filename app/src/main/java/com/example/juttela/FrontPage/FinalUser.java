@@ -8,20 +8,22 @@ public class FinalUser {
     public String gender;
     public String selectedCountry;
     public String imageUri;
+    public String userId;
 
 
     public FinalUser() {
     }
 
-    public FinalUser(String name, String age, String country, String gender, String selectedCountry, String imageUri) {
+    public FinalUser(String name, String age, String country, String gender, String selectedCountry, String imageUri, String userId) {
         this.name = name;
         this.age = age;
         this.country = country;
         this.gender = gender;
         this.selectedCountry = selectedCountry;
         this.imageUri = imageUri;
-
+        this.userId = userId;
     }
+
 
     public String getName() {
         return name;
@@ -71,5 +73,11 @@ public class FinalUser {
         this.imageUri = imageUri;
     }
 
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }
