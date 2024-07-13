@@ -72,16 +72,17 @@ public class Avtar_Setting extends AppCompatActivity {
                 // Get the selected image URI
                 Uri selectedImageUri = (Uri) binding.profileImage.getTag();
                 String imageUriString = selectedImageUri != null ? selectedImageUri.toString() : "";
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = auth.getCurrentUser();
 
 
-                FinalUser user = new FinalUser(name, age, country, selectedItem, selectedCountry, imageUriString);
+                FinalUser user = new FinalUser(name, age, country, selectedItem, selectedCountry, imageUriString,currentUser.getUid());
 
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("FinalUser");
 
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                FirebaseUser currentUser = auth.getCurrentUser();
+
 
 
 

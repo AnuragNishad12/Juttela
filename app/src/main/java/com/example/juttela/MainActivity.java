@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.juttela.FrontPage.FinalUser;
 import com.example.juttela.FrontPage.UserAdapter;
 import com.example.juttela.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,13 +51,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void fetchUsers() {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("FinalUser");
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        final String currentUserId = currentUser != null ? currentUser.getUid() : "";
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                    FinalUser user = snapshot.getValue(FinalUser.class);
-                    if (user != null) {
+                    if (user != null && !user.getUserId().equals(currentUserId)) {
                         userList.add(user);
                     }
                 }
