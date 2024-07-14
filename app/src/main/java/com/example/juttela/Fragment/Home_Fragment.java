@@ -1,5 +1,6 @@
 package com.example.juttela.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,9 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.example.juttela.FrontPage.FinalUser;
@@ -40,6 +45,7 @@ public class Home_Fragment extends Fragment {
     FragmentHomeBinding binding;
     private UserAdapter adapter;
     private List<FinalUser> userList;
+    private String currentGenderFilter = null;
 
 
 
@@ -53,6 +59,12 @@ public class Home_Fragment extends Fragment {
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         binding.recyclerView.setAdapter(adapter);
         fetchUsers();
+        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showGenderOptions(view);
+            }
+        });
 
 
 
@@ -67,14 +79,17 @@ public class Home_Fragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 binding.progressBar2.setVisibility(View.GONE);
-                userList.clear();
+                List<FinalUser> newUserList = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
                     FinalUser user = snapshot.getValue(FinalUser.class);
                     if (user != null && !user.getUserId().equals(currentUserId)) {
-                        userList.add(user);
+                        newUserList.add(user);
                     }
                 }
-                adapter.notifyDataSetChanged();
+                adapter.updateUsers(newUserList);
+                // Reapply the current filter after updating users
+                adapter.filterByGender(currentGenderFilter);
             }
 
             @Override
@@ -83,6 +98,45 @@ public class Home_Fragment extends Fragment {
                 Toast.makeText(getContext(), "Error :"+databaseError, Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void showGenderOptions(View anchorView) {
+        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View customMenuView = inflater.inflate(R.layout.popmenu_layout, null);
+
+        // Create the PopupWindow
+        final PopupWindow popupWindow = new PopupWindow(
+                customMenuView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+
+        // Set up click listeners
+        customMenuView.findViewById(R.id.male_menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle male option selection
+                currentGenderFilter = "male";
+                adapter.filterByGender(currentGenderFilter);
+                popupWindow.dismiss();
+            }
+        });
+
+        customMenuView.findViewById(R.id.female_menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle female option selection
+                currentGenderFilter = "female";
+                adapter.filterByGender(currentGenderFilter);
+                popupWindow.dismiss();
+            }
+        });
+
+        // Set elevation for shadow effect
+        popupWindow.setElevation(10);
+
+        // Show the PopupWindow
+        popupWindow.showAsDropDown(anchorView, -popupWindow.getContentView().getMeasuredWidth() + anchorView.getWidth(), -anchorView.getHeight() - popupWindow.getContentView().getMeasuredHeight());
     }
 }

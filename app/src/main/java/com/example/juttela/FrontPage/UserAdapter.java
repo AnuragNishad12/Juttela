@@ -13,14 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.juttela.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
-    private List<FinalUser> users;
+    private List<FinalUser> allUsers;
+    private List<FinalUser> filteredUsers;
+    private String currentFilter = null;
 
     public UserAdapter(List<FinalUser> users) {
-        this.users = users;
+        this.allUsers = new ArrayList<>(users);
+        this.filteredUsers = new ArrayList<>(users);
     }
 
     @NonNull
@@ -32,14 +35,40 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        FinalUser user = users.get(position);
+        FinalUser user = filteredUsers.get(position);
         holder.bind(user);
     }
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return filteredUsers.size();
     }
+    public void filterByGender(String gender) {
+        currentFilter = gender;
+        applyFilter();
+    }
+    private void applyFilter() {
+        filteredUsers.clear();
+        if (currentFilter == null || currentFilter.isEmpty()) {
+            filteredUsers.addAll(allUsers);
+        } else {
+            for (FinalUser user : allUsers) {
+                if (user.getGender().equalsIgnoreCase(currentFilter)) {
+                    filteredUsers.add(user);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+
+
+    public void updateUsers(List<FinalUser> newUsers) {
+        allUsers.clear();
+        allUsers.addAll(newUsers);
+        applyFilter();
+    }
+
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
         private ImageView profileImage;
@@ -47,7 +76,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         private TextView ageTextView;
         private TextView countryTextView;
         private TextView genderTextView, motherTounge;
-
 
         UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,7 +85,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             countryTextView = itemView.findViewById(R.id.country_card);
             genderTextView = itemView.findViewById(R.id.gender_card);
             motherTounge = itemView.findViewById(R.id.mother_card);
-
         }
 
         void bind(FinalUser user) {
