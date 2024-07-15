@@ -30,6 +30,7 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -68,6 +69,7 @@ public class Avtar_Setting extends AppCompatActivity {
                 String country = getIntent().getStringExtra("country");
                 String selectedItem = getIntent().getStringExtra("selectedItem");
                 String selectedCountry = getIntent().getStringExtra("selectedCountry");
+                ArrayList<String> selectedLanguages = getIntent().getStringArrayListExtra("selectedLanguages");
 
                 // Get the selected image URI
                 Uri selectedImageUri = (Uri) binding.profileImage.getTag();
@@ -76,7 +78,7 @@ public class Avtar_Setting extends AppCompatActivity {
                 FirebaseUser currentUser = auth.getCurrentUser();
 
 
-                FinalUser user = new FinalUser(name, age, country, selectedItem, selectedCountry, imageUriString,currentUser.getUid());
+                FinalUser user = new FinalUser(name, age, country, selectedItem, selectedCountry, imageUriString,currentUser.getUid(),selectedLanguages);
 
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

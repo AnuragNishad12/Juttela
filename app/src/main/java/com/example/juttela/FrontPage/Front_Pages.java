@@ -45,11 +45,11 @@ public class Front_Pages extends AppCompatActivity {
             }
         });
 
-        if (auth.getCurrentUser()!=null){
-            Intent intent = new Intent(Front_Pages.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+//        if (auth.getCurrentUser()!=null){
+//            Intent intent = new Intent(Front_Pages.this, MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
 
     }
 }
