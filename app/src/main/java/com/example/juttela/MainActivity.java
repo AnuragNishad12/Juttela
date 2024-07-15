@@ -37,8 +37,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    private UserAdapter adapter;
-    private List<FinalUser> userList;
+
 
 
     @Override

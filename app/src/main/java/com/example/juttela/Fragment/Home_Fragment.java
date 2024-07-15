@@ -113,7 +113,7 @@ public class Home_Fragment extends Fragment {
         );
 
         // Set up click listeners
-        customMenuView.findViewById(R.id.male_menu).setOnClickListener(new View.OnClickListener() {
+        customMenuView.findViewById(R.id.male_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle male option selection
@@ -123,7 +123,7 @@ public class Home_Fragment extends Fragment {
             }
         });
 
-        customMenuView.findViewById(R.id.female_menu).setOnClickListener(new View.OnClickListener() {
+        customMenuView.findViewById(R.id.female_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle female option selection
@@ -133,6 +133,15 @@ public class Home_Fragment extends Fragment {
             }
         });
 
+        customMenuView.findViewById(R.id.both_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Home_Fragment", "Showing all users");
+                currentGenderFilter = null;
+                adapter.filterByGender(null);
+                popupWindow.dismiss();
+            }
+        });
         // Set elevation for shadow effect
         popupWindow.setElevation(10);
 

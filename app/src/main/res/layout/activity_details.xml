@@ -5,16 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     tools:context=".FrontPage.Details_Activity">
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="570dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
+        android:layout_height="0dp"
+        android:background="#0800FF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +18,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="#0800FF"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView9"
@@ -30,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Country:"
-                android:textColor="#636363"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/spinner"
@@ -42,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Gender:"
-                android:textColor="#636363"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/age"
@@ -52,9 +50,9 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Mouth Tounge:"
-                android:textColor="#656565"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/country"
@@ -64,10 +62,10 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Age:"
-                android:textColor="#636363"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,11 +75,11 @@
                 android:id="@+id/textView10"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="100dp"
                 android:fontFamily="@font/arizonia"
                 android:gravity="center"
                 android:text="Tell About YourSelf"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -98,6 +96,8 @@
                 android:fontFamily="@font/andika"
                 android:inputType="number"
                 android:padding="5dp"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -106,7 +106,9 @@
                 android:id="@+id/spinner"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/background_country_item"
+                android:padding="5dp"
                 app:layout_constraintStart_toStartOf="@+id/gender"
                 app:layout_constraintTop_toBottomOf="@+id/gender" />
 
@@ -120,6 +122,8 @@
                 android:fontFamily="@font/andika"
                 android:inputType="text"
                 android:padding="5dp"
+                android:textColor="#FAFAFA"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView9"
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -128,6 +132,9 @@
                 android:id="@+id/country_spinner"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/background_country_item"
+                android:padding="5dp"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -135,14 +142,41 @@
                 android:id="@+id/about_continue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="148dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="#002AFF"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#00178A"
                 android:text="Continue"
                 android:textStyle="bold"
                 app:cornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/country_spinner" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="#000000"
+                app:layout_constraintBottom_toBottomOf="@+id/spinner"
+                app:layout_constraintEnd_toEndOf="@+id/spinner"
+                app:layout_constraintHorizontal_bias="0.909"
+                app:layout_constraintStart_toStartOf="@+id/spinner"
+                app:layout_constraintTop_toTopOf="@+id/spinner"
+                app:srcCompat="@drawable/down_arrow" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="#000000"
+                app:layout_constraintBottom_toBottomOf="@+id/country_spinner"
+                app:layout_constraintEnd_toEndOf="@+id/country_spinner"
+                app:layout_constraintHorizontal_bias="0.933"
+                app:layout_constraintStart_toStartOf="@+id/country_spinner"
+                app:layout_constraintTop_toTopOf="@+id/country_spinner"
+                app:srcCompat="@drawable/down_arrow" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
