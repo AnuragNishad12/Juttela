@@ -1,5 +1,6 @@
 package com.example.juttela.FrontPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -41,10 +42,23 @@ public class SelectLearningLanguage extends AppCompatActivity {
             }
         });
         binding.languageRecyclerView.setAdapter(adapter);
+        String name = getIntent().getStringExtra("name");
+        String age = getIntent().getStringExtra("age");
+        String country = getIntent().getStringExtra("country");
+        String selectedItem = getIntent().getStringExtra("selectedItem");
+        String selectedCountry = getIntent().getStringExtra("selectedCountry");
         binding.submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 List<String> selectedLanguages = getSelectedLanguages();
+                Intent intent = new Intent(SelectLearningLanguage.this, Avtar_Setting.class); // Replace NextActivity with the name of your target activity
+                intent.putStringArrayListExtra("selectedLanguages", new ArrayList<>(selectedLanguages));
+                intent.putExtra("name",name);
+                intent.putExtra("age",age);
+                intent.putExtra("country",country);
+                intent.putExtra("selectedItem",selectedItem);
+                intent.putExtra("selectedCountry",selectedCountry);
+                startActivity(intent);
             }
         });
 
@@ -92,6 +106,7 @@ public class SelectLearningLanguage extends AppCompatActivity {
     private void updateSubmitButton(int selectedCount) {
         binding.submitButton.setText("Submit (" + selectedCount + "/3)");
         binding.submitButton.setEnabled(selectedCount > 0);
+
     }
 
 

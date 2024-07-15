@@ -1,5 +1,7 @@
 package com.example.juttela.FrontPage;
 
+import java.util.ArrayList;
+
 public class FinalUser {
 
     public String name;
@@ -10,11 +12,13 @@ public class FinalUser {
     public String imageUri;
     public String userId;
 
+    // Add a String array to store multiple pieces of data
+    public ArrayList<String> additionalData;
 
     public FinalUser() {
     }
 
-    public FinalUser(String name, String age, String country, String gender, String selectedCountry, String imageUri, String userId) {
+    public FinalUser(String name, String age, String country, String gender, String selectedCountry, String imageUri, String userId, ArrayList<String> additionalData) {
         this.name = name;
         this.age = age;
         this.country = country;
@@ -22,8 +26,8 @@ public class FinalUser {
         this.selectedCountry = selectedCountry;
         this.imageUri = imageUri;
         this.userId = userId;
+        this.additionalData = additionalData;
     }
-
 
     public String getName() {
         return name;
@@ -79,5 +83,14 @@ public class FinalUser {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+
+    public ArrayList<String> getAdditionalData() {
+        return additionalData;
+    }
+
+    public void setAdditionalData(ArrayList<String> additionalData) {
+        this.additionalData = additionalData;
     }
 }

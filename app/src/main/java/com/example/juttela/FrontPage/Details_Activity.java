@@ -87,7 +87,7 @@ public class Details_Activity extends AppCompatActivity {
                 String age = binding.age.getText().toString();
                 String country = binding.country.getText().toString();
 
-                Intent intent = new Intent(Details_Activity.this, Avtar_Setting.class);
+                Intent intent = new Intent(Details_Activity.this, SelectLearningLanguage.class);
                 intent.putExtra("age",age);
                 intent.putExtra("country",country);
                 intent.putExtra("selectedItem",selectedItem);
