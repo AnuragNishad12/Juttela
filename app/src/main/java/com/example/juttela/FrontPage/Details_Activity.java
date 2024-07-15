@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -86,14 +87,17 @@ public class Details_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 String age = binding.age.getText().toString();
                 String country = binding.country.getText().toString();
-
-                Intent intent = new Intent(Details_Activity.this, SelectLearningLanguage.class);
-                intent.putExtra("age",age);
-                intent.putExtra("country",country);
-                intent.putExtra("selectedItem",selectedItem);
-                intent.putExtra("selectedCountry",selectedCountry);
-                intent.putExtra("name",name);
-                startActivity(intent);
+                if (age.isEmpty() || selectedCountry.isEmpty() || selectedItem.isEmpty() || country.isEmpty()){
+                    Toast.makeText(Details_Activity.this, "Fill All the fields", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(Details_Activity.this, SelectLearningLanguage.class);
+                    intent.putExtra("age", age);
+                    intent.putExtra("country", country);
+                    intent.putExtra("selectedItem", selectedItem);
+                    intent.putExtra("selectedCountry", selectedCountry);
+                    intent.putExtra("name", name);
+                    startActivity(intent);
+                }
             }
         });
 
