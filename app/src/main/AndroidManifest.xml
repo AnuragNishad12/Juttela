@@ -13,23 +13,19 @@
         android:theme="@style/Theme.Juttela"
         tools:targetApi="31">
         <activity
-            android:name=".FrontPage.Details_Activity"
+            android:name=".Fragment.Chat.Chat_Activity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
+        <activity
+            android:name=".FrontPage.Details_Activity"
+            android:exported="true"></activity>
         <activity
             android:name=".FrontPage.SelectLearningLanguage"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".FrontPage.Avtar_Setting"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".FrontPage.Login_activity"
             android:exported="false" />
@@ -38,10 +34,13 @@
             android:exported="false" />
         <activity
             android:name=".FrontPage.Front_Pages"
-            android:exported="true" >
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="true" />
