@@ -8,18 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.example.juttela.FrontPage.FinalUser;
 import com.example.juttela.FrontPage.UserAdapter;
-import com.example.juttela.MainActivity;
 import com.example.juttela.R;
 import com.example.juttela.databinding.FragmentHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
