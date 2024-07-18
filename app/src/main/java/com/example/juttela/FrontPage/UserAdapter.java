@@ -2,7 +2,6 @@ package com.example.juttela.FrontPage;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.juttela.CustomDialog;
 import com.example.juttela.R;
 import com.example.juttela.Send_Request_dialog;
+import com.example.juttela.UserManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,17 +45,36 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Showdialog(view.getContext());
+                Showdialog(view.getContext(),user);
             }
         });
 
 
 
     }
-   public  void Showdialog(Context context){
-       Send_Request_dialog customDialog = new Send_Request_dialog();
-        customDialog.Request_dialog(context);
-   }
+    public void Showdialog(Context context, FinalUser receiver) {
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        UserManager.checkIfRequestExists(currentUserId, receiver.getUserId(), new UserManager.RequestCheckListener() {
+            @Override
+            public void onRequestCheckComplete(boolean requestExists) {
+                if (requestExists) {
+                    // Request already sent, show a toast or snackbar
+                    Toast.makeText(context, "Request already sent to this user", Toast.LENGTH_SHORT).show();
+                } else {
+                    // No existing request, show the dialog
+                    Send_Request_dialog customDialog = new Send_Request_dialog();
+                    customDialog.Request_dialog(context, receiver, new Send_Request_dialog.OnRequestSentListener() {
+                        @Override
+                        public void onRequestSent(FinalUser receiver) {
+                            // Request sent successfully
+                            // You might want to update UI or show a confirmation message here
+                        }
+                    });
+                }
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {
@@ -121,5 +139,4 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             }
         }
     }
-
 }
