@@ -1,6 +1,7 @@
 package com.example.juttela.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.example.juttela.Fragment.Chat.Chat_Activity;
+import com.example.juttela.Fragment.Model.Request;
 import com.example.juttela.FrontPage.FinalUser;
 import com.example.juttela.FrontPage.UserAdapter;
 import com.example.juttela.R;
@@ -62,7 +65,7 @@ public class Home_Fragment extends Fragment {
             }
         });
 
-
+        checkActiveRequests();
 
         return binding.getRoot();
     }
@@ -143,5 +146,36 @@ public class Home_Fragment extends Fragment {
 
         // Show the PopupWindow
         popupWindow.showAsDropDown(anchorView, -popupWindow.getContentView().getMeasuredWidth() + anchorView.getWidth(), -anchorView.getHeight() - popupWindow.getContentView().getMeasuredHeight());
+    }
+
+    private void checkActiveRequests() {
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference("requests");
+
+        requestsRef.orderByChild("receiverId").equalTo(currentUserId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Request request = snapshot.getValue(Request.class);
+                            if (request != null && "active".equals(request.getStatus())) {
+                                startChatActivity(request.getSenderId());
+                                return;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle possible errors
+                    }
+                });
+    }
+
+    private void startChatActivity(String otherUserId) {
+        Intent intent = new Intent(requireContext(), Chat_Activity.class);
+        intent.putExtra("otherUserId", otherUserId);
+        startActivity(intent);
+         // Close MainActivity
     }
 }

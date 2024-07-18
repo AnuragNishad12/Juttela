@@ -18,8 +18,8 @@ public class CustomDialog {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.friend_dialog_box);
 
-        Button textButton = dialog.findViewById(R.id.request_button);
-        ImageView reject = dialog.findViewById(R.id.cancel);
+        Button textButton = dialog.findViewById(R.id.acceptButton);
+        ImageView reject = dialog.findViewById(R.id.rejectButton);
 
         textButton.setOnClickListener(new View.OnClickListener() {
             @Override
