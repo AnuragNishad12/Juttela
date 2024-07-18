@@ -1,7 +1,6 @@
 package com.example.juttela;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,8 +23,8 @@ public class Send_Request_dialog {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.send_request);
 
-        Button textButton = dialog.findViewById(R.id.request_button);
-        ImageView reject = dialog.findViewById(R.id.cancel);
+        Button textButton = dialog.findViewById(R.id.acceptButton);
+        ImageView reject = dialog.findViewById(R.id.rejectButton);
 
         textButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +53,7 @@ public class Send_Request_dialog {
 
         DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference("requests");
 
-        String requestId = requestsRef.push().getKey();
+        String requestId = senderId;
 
         Map<String, Object> requestData = new HashMap<>();
         requestData.put("senderId", senderId);
