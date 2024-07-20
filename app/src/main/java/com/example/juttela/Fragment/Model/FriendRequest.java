@@ -1,18 +1,17 @@
 package com.example.juttela.Fragment.Model;
 
-public class Request {
+public class FriendRequest {
     private String senderId;
     private String receiverId;
     private String status;
 
-    public Request() {
+    public FriendRequest() {
     }
 
-    public Request( String senderId, String receiverId, String status) {
-
+    public FriendRequest(String senderId, String receiverId) {
         this.senderId = senderId;
         this.receiverId = receiverId;
-        this.status = status;
+        this.status = "pending";
     }
 
     public String getSenderId() {
