@@ -39,7 +39,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/acceptButton"
+                android:id="@+id/accept_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -56,13 +56,13 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
-                android:id="@+id/rejectButton"
+                android:id="@+id/reject_button"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="104dp"
-                app:layout_constraintBottom_toBottomOf="@+id/acceptButton"
+                app:layout_constraintBottom_toBottomOf="@+id/accept_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/acceptButton"
+                app:layout_constraintTop_toTopOf="@+id/accept_button"
                 app:layout_constraintVertical_bias="0.52"
                 app:srcCompat="@drawable/close" />
         </androidx.constraintlayout.widget.ConstraintLayout>
