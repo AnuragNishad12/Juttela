@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-07-20T08:56:00.609424800Z">
+        <DropdownSelection timestamp="2024-07-21T09:37:17.839108300Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=RZ8N22GK1NF" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\dell\.android\avd\anuragsPhone.avd" />
             </handle>
           </Target>
         </DropdownSelection>
