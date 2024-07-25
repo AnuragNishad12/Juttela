@@ -141,7 +141,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Selected Country:"
+                        android:text="Selected Language:"
                         android:textColor="#000000"
                         android:textSize="12sp"
                         android:textStyle="bold"
