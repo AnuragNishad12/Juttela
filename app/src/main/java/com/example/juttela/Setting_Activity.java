@@ -55,27 +55,6 @@ public class Setting_Activity extends AppCompatActivity {
                     Glide.with(Setting_Activity.this)
                             .load(imageUri)
                             .into(binding.profileImageEdit);
-
-//                    DataSnapshot additionalDataSnapshot = dataSnapshot.child("additionalData");
-//                    if (additionalDataSnapshot.exists()) {
-//                        for (DataSnapshot languageSnapshot : additionalDataSnapshot.getChildren()) {
-//                            String language = languageSnapshot.getValue(String.class);
-//                            if (language != null) {
-//                                list.add(language);
-//                            }
-//                        }
-//
-////                         Display languages
-//                        if (!list.isEmpty()) {
-//                            String languagesString =String.join(", ", list);
-//                            binding.profileLearningLan.setText(languagesString);
-//                        } else {
-//                            binding.profileLearningLan.setVisibility(View.GONE);
-//                        }
-//                    } else {
-//                        binding.profileLearningLan.setVisibility(View.GONE);
-//                    }
-
                 }
 
             }

@@ -83,6 +83,7 @@ public class Home_Fragment extends Fragment {
             // If data is not in Paper, fetch from Firebase
             fetchFromFirebase();
         }
+        fetchFromFirebase();
     }
 
     private List<FinalUser> loadUsersFromPaper() {
