@@ -74,7 +74,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView28"
+                        android:id="@+id/profileAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -96,10 +96,10 @@
                         android:textSize="12sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/textView27"
-                        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                        app:layout_constraintTop_toBottomOf="@+id/profileAge" />
 
                     <TextView
-                        android:id="@+id/textView30"
+                        android:id="@+id/profileGender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -121,10 +121,10 @@
                         android:textSize="12sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/textView29"
-                        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+                        app:layout_constraintTop_toBottomOf="@+id/profileGender" />
 
                     <TextView
-                        android:id="@+id/textView32"
+                        android:id="@+id/profileCountry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -141,15 +141,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Selected Country:"
+                        android:text="Selected Language:"
                         android:textColor="#000000"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/textView31"
-                        app:layout_constraintTop_toBottomOf="@+id/textView32" />
+                        app:layout_constraintTop_toBottomOf="@+id/profileCountry" />
 
                     <TextView
-                        android:id="@+id/textView34"
+                        android:id="@+id/profileLan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -189,7 +189,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/imageView12"
+                        android:id="@+id/profileImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="centerCrop"
