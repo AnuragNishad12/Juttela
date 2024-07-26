@@ -26,13 +26,7 @@ public class Message_Fragment extends Fragment {
                              Bundle savedInstanceState) {
       binding = FragmentMessageBinding.inflate(inflater,container,false);
 
-      binding.clickMe.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              CustomDialog customDialog = new CustomDialog();
-              customDialog.ShowCustomDialog(getActivity());
-          }
-      });
+
 
         return binding.getRoot();
     }
