@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.juttela.Fragment.Model.FriendRequest;
+import com.example.juttela.FrontPage.FinalUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -51,24 +52,46 @@ public class Send_Request_dialog {
     private void sendFriendRequest(Context context, String receiverId) {
         String senderId = mAuth.getCurrentUser().getUid();
 
-        // Check if request already sent
-        mDatabase.child("friend_requests").child(receiverId).child(senderId).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference userRef = mDatabase.child("FinalUser").child(senderId);
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    Toast.makeText(context, "Friend request already sent", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Check if they are already friends
-                    mDatabase.child("friends").child(senderId).child(receiverId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    // Get current user's data
+                    FinalUser currentUser = dataSnapshot.getValue(FinalUser.class);
+
+                    // Optionally, use the currentUser data if needed
+                    // For example, you might want to get the user's name or email
+                    String currentUserName = currentUser.getName();
+                    String currentUserImage = currentUser.getImageUri();
+
+                    // Check if request already sent
+                    mDatabase.child("friend_requests").child(receiverId).child(senderId).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-                                Toast.makeText(context, "You are already friends", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Friend request already sent", Toast.LENGTH_SHORT).show();
                             } else {
-                                // Send the friend request
-                                FriendRequest request = new FriendRequest(senderId, receiverId);
-                                mDatabase.child("friend_requests").child(receiverId).child(senderId).setValue(request);
-                                Toast.makeText(context, "Friend request sent", Toast.LENGTH_SHORT).show();
+                                // Check if they are already friends
+                                mDatabase.child("friends").child(senderId).child(receiverId).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            Toast.makeText(context, "You are already friends", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            // Send the friend request
+                                            FriendRequest request = new FriendRequest(senderId, receiverId,currentUserImage,currentUserName);
+                                            mDatabase.child("friend_requests").child(receiverId).child(senderId).setValue(request);
+                                            Toast.makeText(context, "Friend request sent", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        Toast.makeText(context, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         }
 
@@ -77,6 +100,8 @@ public class Send_Request_dialog {
                             Toast.makeText(context, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+                } else {
+                    Toast.makeText(context, "Error: User data not found", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -86,4 +111,5 @@ public class Send_Request_dialog {
             }
         });
     }
+
 }

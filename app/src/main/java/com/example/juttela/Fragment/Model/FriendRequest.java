@@ -4,15 +4,35 @@ public class FriendRequest {
     private String senderId;
     private String receiverId;
     private String status;
+    private String image;
+    private String name;
+
+    public FriendRequest(String senderId, String receiverId, String image, String name) {
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.image = image;
+        this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public FriendRequest() {
     }
 
-    public FriendRequest(String senderId, String receiverId) {
-        this.senderId = senderId;
-        this.receiverId = receiverId;
-        this.status = "pending";
-    }
 
     public String getSenderId() {
         return senderId;
