@@ -9,8 +9,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.juttela.Fragment.Chat.Chat_Activity;
-
 public class CustomDialog {
 
     public void ShowCustomDialog(FragmentActivity context){
