@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:fitsSystemWindows="true"
-    tools:context=".Fragment.Chat.Chat_Activity">
+    tools:context=".Chat_Activity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

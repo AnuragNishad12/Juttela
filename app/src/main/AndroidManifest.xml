@@ -16,7 +16,7 @@
             android:name=".Setting_Activity"
             android:exported="false" />
         <activity
-            android:name=".Fragment.Chat.Chat_Activity"
+            android:name=".Chat_Activity"
             android:exported="true"></activity>
         <activity
             android:name=".FrontPage.Details_Activity"

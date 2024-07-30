@@ -1,4 +1,4 @@
-package com.example.juttela.Fragment.Chat;
+package com.example.juttela;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.juttela.Fragment.Adapter.ChatAdapter;
+import com.example.juttela.Fragment.Adapter.FriendAdapter;
 import com.example.juttela.Fragment.Model.MessageModel;
 import com.example.juttela.R;
 import com.example.juttela.databinding.ActivityChatBinding;
@@ -40,6 +41,7 @@ public class Chat_Activity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         otherUserId = getIntent().getStringExtra("otherUserId");
