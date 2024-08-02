@@ -2,6 +2,7 @@ package com.example.juttela.Fragment.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.juttela.Chat_Activity;
+import com.example.juttela.Fragment.Message_Fragment;
 import com.example.juttela.Fragment.Model.FriendRequest;
 import com.example.juttela.FrontPage.FinalUser;
 import com.example.juttela.R;
@@ -78,48 +80,70 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
         }
 
         private void acceptFriendRequest(FriendRequest friendRequest) {
-            DatabaseReference friendsRef = FirebaseDatabase.getInstance().getReference().child("friends");
-            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("FinalUser"); // Reference to the users node
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference friendsRef = database.getReference().child("friends");
+            DatabaseReference usersRef = database.getReference().child("FinalUser");
+            DatabaseReference friendsDataRef = database.getReference().child("friendsData");
             String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+            // Update friends list
             friendsRef.child(currentUserId).child(friendRequest.getSenderId()).setValue(true);
             friendsRef.child(friendRequest.getSenderId()).child(currentUserId).setValue(true);
 
+            // Retrieve sender's and receiver's data
             usersRef.child(friendRequest.getSenderId()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    FinalUser friend = dataSnapshot.getValue(FinalUser.class);
-                    if (friend != null) {
-
-                        DatabaseReference friendsDataRef = FirebaseDatabase.getInstance().getReference().child("friendsData");
-                        friendsDataRef.child(currentUserId).child(friendRequest.getSenderId()).setValue(friend);
+                    FinalUser sender = dataSnapshot.getValue(FinalUser.class);
+                    if (sender != null) {
+                        // Store sender's data in receiver's friendsData
+                        friendsDataRef.child(currentUserId).child(friendRequest.getSenderId()).setValue(sender);
                     }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Handle possible errors.
+                    Log.e("FirebaseError", "Error: " + databaseError.getMessage());
                 }
             });
 
+            usersRef.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    FinalUser receiver = dataSnapshot.getValue(FinalUser.class);
+                    if (receiver != null) {
+                        // Store receiver's data in sender's friendsData
+                        friendsDataRef.child(friendRequest.getSenderId()).child(currentUserId).setValue(receiver);
+                    }
+                }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("FirebaseError", "Error: " + databaseError.getMessage());
+                }
+            });
 
-            DatabaseReference requestRef = FirebaseDatabase.getInstance().getReference()
-                    .child("friend_requests").child(currentUserId).child(friendRequest.getSenderId());
-            requestRef.removeValue();
+            // Remove friend request
+            DatabaseReference requestRef = database.getReference().child("friend_requests").child(currentUserId).child(friendRequest.getSenderId());
+            requestRef.removeValue().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // Remove from local list and notify adapter
+                    friendRequests.remove(friendRequest);
+                    notifyDataSetChanged();
 
-            // Remove from local list and notify adapter
-            friendRequests.remove(friendRequest);
-            notifyDataSetChanged();
+                    // Show a toast message
+                    Toast.makeText(context, "Friend request accepted", Toast.LENGTH_SHORT).show();
 
-            // Show a toast message
-            Toast.makeText(context, "Friend request accepted", Toast.LENGTH_SHORT).show();
-
-            // Move to Chat Activity
-            Intent intent = new Intent(context, Chat_Activity.class);
-            intent.putExtra("otherUserId", friendRequest.getSenderId());
-            context.startActivity(intent);
+                    // Move to Chat Activity
+                    Intent intent = new Intent(context, Chat_Activity.class);
+                    intent.putExtra("otherUserId", friendRequest.getSenderId());
+                    context.startActivity(intent);
+                } else {
+                    Log.e("FirebaseError", "Error removing friend request: " + task.getException().getMessage());
+                }
+            });
         }
+
 
         private void rejectFriendRequest(FriendRequest friendRequest) {
             String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();

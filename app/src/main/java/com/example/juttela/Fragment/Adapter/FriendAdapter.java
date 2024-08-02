@@ -1,7 +1,5 @@
 package com.example.juttela.Fragment.Adapter;
 
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -22,38 +20,31 @@ import java.util.ArrayList;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendViewHolder> {
 
-   ArrayList<FinalUser> finalUsers;
-    Context context;
+    private ArrayList<FinalUser> finalUsers;
+    private Context context;
+    private OnItemClickListener listener;
 
-    public FriendAdapter(ArrayList<FinalUser> finalUsers, Context context) {
+    public interface OnItemClickListener {
+        void onItemClick(FinalUser user);
+    }
+
+    public FriendAdapter(ArrayList<FinalUser> finalUsers, Context context, OnItemClickListener listener) {
         this.finalUsers = finalUsers;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public FriendAdapter.FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_layout, parent, false);
         return new FriendViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendAdapter.FriendViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         FinalUser friend = finalUsers.get(position);
-        holder.text.setText(friend.getName());
-        Glide.with(holder.itemView.getContext())
-                .load(friend.getImageUri())
-                .into(holder.image);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, Chat_Activity.class);
-                context.startActivity(intent);
-            }
-        });
-
-
-
+        holder.bind(friend, listener);
     }
 
     @Override
@@ -61,19 +52,29 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         return finalUsers.size();
     }
 
-
-
     public class FriendViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
         TextView text;
+
         public FriendViewHolder(@NonNull View itemView) {
             super(itemView);
-            text= itemView.findViewById(R.id.message_Name);
+            text = itemView.findViewById(R.id.message_Name);
             image = itemView.findViewById(R.id.message_Image);
         }
+
+        public void bind(final FinalUser friend, final OnItemClickListener listener) {
+            text.setText(friend.getName());
+            Glide.with(context).load(friend.getImageUri()).into(image);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        listener.onItemClick(friend);
+                    }
+                }
+            });
+        }
     }
-
-
-
 }

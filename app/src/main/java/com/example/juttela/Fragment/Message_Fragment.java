@@ -1,5 +1,6 @@
 package com.example.juttela.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.juttela.Chat_Activity;
 import com.example.juttela.Fragment.Adapter.FriendAdapter;
 import com.example.juttela.FrontPage.FinalUser;
 import com.example.juttela.databinding.FragmentMessageBinding;
@@ -37,7 +39,15 @@ public class Message_Fragment extends Fragment {
                              Bundle savedInstanceState) {
       binding = FragmentMessageBinding.inflate(inflater,container,false);
         userList = new ArrayList<>();
-      adapter = new FriendAdapter(userList,getContext());
+        adapter = new FriendAdapter(userList, getContext(), new FriendAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(FinalUser user) {
+                // Start Chat Activity
+                Intent intent = new Intent(getActivity(), Chat_Activity.class);
+                intent.putExtra("otherUserId", user.getUserId());
+                startActivity(intent);
+            }
+        });
         binding.messageRecyclerView.setAdapter(adapter);
         binding.messageRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
