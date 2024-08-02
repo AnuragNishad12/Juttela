@@ -43,8 +43,7 @@ public class Chat_Activity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        otherUserId = getIntent().getStringExtra("otherUserId");
+
 
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         otherUserId = getIntent().getStringExtra("otherUserId");
@@ -88,6 +87,7 @@ public class Chat_Activity extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
+
 
                                             }
                                         });
