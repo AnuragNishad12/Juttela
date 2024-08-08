@@ -65,6 +65,8 @@ public class Chat_Activity extends AppCompatActivity {
                     MessageModel model = snapshot1.getValue(MessageModel.class);
                     messageModels.add(model);
                 }
+                chatAdapter.notifyDataSetChanged();
+                scrollToBottom();
             }
 
             @Override
@@ -121,6 +123,13 @@ public class Chat_Activity extends AppCompatActivity {
 
     private void initializeChat() {
         // Initialize your chat UI and functionality here
+    }
+
+    private void scrollToBottom() {
+        binding.recyclerView.post(() -> {
+            // Scroll to the last item
+            binding.recyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
+        });
     }
 
 
