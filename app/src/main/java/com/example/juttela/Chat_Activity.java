@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.example.juttela.Fragment.Adapter.ChatAdapter;
 import com.example.juttela.Fragment.Adapter.FriendAdapter;
 import com.example.juttela.Fragment.Model.MessageModel;
@@ -65,6 +66,8 @@ public class Chat_Activity extends AppCompatActivity {
                     MessageModel model = snapshot1.getValue(MessageModel.class);
                     messageModels.add(model);
                 }
+                chatAdapter.notifyDataSetChanged();
+                scrollToBottom();
             }
 
             @Override
@@ -96,6 +99,37 @@ public class Chat_Activity extends AppCompatActivity {
             }
         });
 
+        fetchChatPartnerInfo();
+
+    }
+
+    private void fetchChatPartnerInfo() {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(otherUserId);
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String name = dataSnapshot.child("name").getValue(String.class);
+
+                    binding.chatName.setText(name);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+
+        binding.backChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+
     }
 
     private void checkIfFriends() {
@@ -121,6 +155,13 @@ public class Chat_Activity extends AppCompatActivity {
 
     private void initializeChat() {
         // Initialize your chat UI and functionality here
+    }
+
+    private void scrollToBottom() {
+        binding.recyclerView.post(() -> {
+            // Scroll to the last item
+            binding.recyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
+        });
     }
 
 
