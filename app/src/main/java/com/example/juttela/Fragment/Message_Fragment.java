@@ -73,7 +73,7 @@ public class Message_Fragment extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle possible errors
+
             }
         });
     }
