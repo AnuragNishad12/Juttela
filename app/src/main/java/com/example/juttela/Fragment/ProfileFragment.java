@@ -78,7 +78,6 @@ public class ProfileFragment extends Fragment {
                             }
                         }
 
-                        // Display languages
                         if (!list.isEmpty()) {
                             String languagesString =String.join(", ", list);
                             binding.profileLearningLan.setText(languagesString);
