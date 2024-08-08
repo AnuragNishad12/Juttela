@@ -74,6 +74,10 @@ public class Avtar_Setting extends AppCompatActivity {
                 // Get the selected image URI
                 Uri selectedImageUri = (Uri) binding.profileImage.getTag();
                 String imageUriString = selectedImageUri != null ? selectedImageUri.toString() : "";
+                if (selectedImageUri == null) {
+                    Toast.makeText(Avtar_Setting.this, "Please select an avatar", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 FirebaseUser currentUser = auth.getCurrentUser();
 

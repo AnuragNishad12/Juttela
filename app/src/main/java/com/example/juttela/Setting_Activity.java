@@ -97,6 +97,12 @@ public class Setting_Activity extends AppCompatActivity {
 
             }
         });
+        binding.settingBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
 }
